@@ -41,7 +41,7 @@ public class ImageBackgroundDemo {
                 rgb[2] = (pixel & 0xff);
                 //进行判断，如果色素点在指定范围内，则进行下一步修改
                 if (rgb[0] < 110 && rgb[0] > 50 && rgb[1] < 30 && rgb[1] > 10 && rgb[2] < 50 && rgb[2] > 25) {        //修改像素点，0x007ABB是证件照的蓝色背景色
-                    bImage.setRGB(i, j, 0x007ABB);
+                    bImage.setRGB(i, j, 0x00ffff);
                 }
             }
         }
