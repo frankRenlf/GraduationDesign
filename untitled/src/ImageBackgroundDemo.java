@@ -61,6 +61,6 @@ public class ImageBackgroundDemo {
     static ImageBackgroundDemo demo1 = new ImageBackgroundDemo();
 
     public static void main(String[] args) throws Exception {
-        demo1.change("C:\\Users\\11195\\OneDrive - University of Leeds\\Desktop\\Overseas Study\\identify\\id.jpg", "C:\\Users\\11195\\OneDrive - University of Leeds\\Desktop\\Overseas Study\\identify\\id2.jpg");
+        demo1.change("C:\\Users\\11195\\OneDrive - University of Leeds\\Desktop\\Overseas Study\\identify\\test.jpg", "C:\\Users\\11195\\OneDrive - University of Leeds\\Desktop\\Overseas Study\\identify\\id2.jpg");
     }
 }
