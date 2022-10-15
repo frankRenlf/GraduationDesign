@@ -13,6 +13,7 @@ body{
   align-items: center;
   justify-content: center;
   background: #E3F2FD;
+  background-image: url();
 }
 .container{
   width: 850px;
@@ -28,6 +29,7 @@ body{
   pointer-events: none;
 }
 .container h2{
+  
   margin-top: -8px;
   font-size: 22px;
   font-weight: 500;

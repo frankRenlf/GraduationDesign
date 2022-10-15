@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    #divID {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        mix-blend-mode: hue;
+    }
+
+    body {
+        overflow: hidden;
+    }
+
+    img {
+        height: 100vh;
+        width: 100%;
+    }
+</style>
+
+<body>
+    <img src="C:\Users\11195\OneDrive - University of Leeds\Pictures\Draw&Guess\1.png">
+
+    <div id="divID"></div>
+
+    <script>
+        const divElem = document.getElementById("divID");
+        function randomcolor() {
+            return Math.floor(Math.random() * 255);
+        }
+        divElem.addEventListener('click', () => {
+            divElem.style.backgroundColor = 'rgba('
+                + randomcolor() + ',' + randomcolor()
+                + ',' + randomcolor() + '\)'
+        })
+    </script>
+</body>
+
+</html>
