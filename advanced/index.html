@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="./pintura.css" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="my-editor"></div>
+
+    <script type="module">
+      import { appendDefaultEditor } from "./pintura.js";
+
+      const pintura = appendDefaultEditor(".my-editor", {
+        // The source image to load
+        src: "./my-image.jpeg",
+
+        // This will set a square crop aspect ratio
+        imageCropAspectRatio: 1,
+
+        // Stickers available to user
+        stickers: [
+          ["Emoji", ["⭐️", "😊", "👍", "👎", "☀️", "🌤", "🌥"]],
+          [
+            "Markers",
+            [
+              {
+                src: "sticker-one.svg",
+                width: "5%",
+                alt: "One"
+              },
+              {
+                src: "sticker-two.svg",
+                width: "5%",
+                alt: "Two"
+              },
+              {
+                src: "sticker-three.svg",
+                width: "5%",
+                alt: "Three"
+              }
+            ]
+          ]
+        ]
+      });
+    </script>
+  </body>
+</html>
