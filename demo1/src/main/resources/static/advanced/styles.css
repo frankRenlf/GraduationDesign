@@ -1,0 +1,22 @@
+/* bright / dark mode */
+.pintura-editor {
+  --color-background: 255, 255, 255;
+  --color-foreground: 0, 0, 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color: #fff;
+    background: #000;
+  }
+
+  .pintura-editor {
+    --color-background: 0, 0, 0;
+    --color-foreground: 255, 255, 255;
+  }
+}
+
+/* size of the editor */
+.my-editor {
+  height: 95vh;
+}
