@@ -1,52 +1,83 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="./pintura.css" />
-    <link rel="stylesheet" href="./styles.css" />
-  </head>
-  <body>
-    <div class="my-editor"></div>
-    <img src="" alt="" />
-    <script type="module">
-      import { appendDefaultEditor } from "./pintura.js";
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="./pintura.css"/>
+    <link rel="stylesheet" href="./styles.css"/>
+</head>
+<body>
 
-      const pintura = appendDefaultEditor(".my-editor", {
+<input type="file" value="select img" id="file">
+<img src="" id="img" alt="暂无" width="50" height="50">
+<button id="upload">upload</button>
+<!--<form method="post" action="/upload" enctype="multipart/form-data">-->
+<!--    <pintura-input name="my-image"></pintura-input>-->
+<!--    <button type="submit">Upload</button>-->
+<!--</form>-->
+<!--<script src="pintura-input.js"></script>-->
+<div class="my-editor"></div>
+<img src="" alt=""/>
+<script>
+    let file = document.querySelector("#file");   //表单
+    let img = document.querySelector("#img");   //图片
+    let upload = document.querySelector("#upload");   //下载
+    let body = document.body;
+    let file1 = null;
+    file.onchange = function (e) {
+        console.log(e);
+        file1 = e.target.files[0]; //文件上传
+        img.src = URL.createObjectURL(e.target.files[0]); //图片上传
+    }
+
+    upload.onclick = function () {
+        let a = document.createElement("a");
+        a.setAttribute("href", URL.createObjectURL(file1));
+        a.setAttribute("download", "my-image1.png");  //file1.name文件的名字
+        a.click();
+    }
+</script>
+<script type="module">
+    import {appendDefaultEditor} from "./pintura.js";
+
+    const pintura = appendDefaultEditor(".my-editor", {
         // The source image to load
-        src: "./my-image.jpeg",
+        src: './contain/my-image1.png',
         // This will set a square crop aspect ratio
         imageCropAspectRatio: 1,
         // Stickers available to user
         stickers: [
-          ["Emoji", ["⭐️", "😊", "👍", "👎", "☀️", "🌤", "🌥"]],
-          [
-            "Markers",
+            ["Emoji", ["⭐️", "😊", "👍", "👎", "☀️", "🌤", "🌥"]],
             [
-              {
-                src: "sticker-one.svg",
-                width: "5%",
-                alt: "One"
-              },
-              {
-                src: "sticker-two.svg",
-                width: "5%",
-                alt: "Two"
-              },
-              {
-                src: "sticker-three.svg",
-                width: "5%",
-                alt: "Three"
-              }
+                "Markers",
+                [
+                    {
+                        src: "sticker-one.svg",
+                        width: "5%",
+                        alt: "One"
+                    },
+                    {
+                        src: "sticker-two.svg",
+                        width: "5%",
+                        alt: "Two"
+                    },
+                    {
+                        src: "sticker-three.svg",
+                        width: "5%",
+                        alt: "Three"
+                    }
+                ]
             ]
-          ]
         ]
-      });
-      pintura.on('process', ({ dest }) => {
+    });
+    pintura.on('process', ({dest}) => {
         const image = document.querySelector('img');
         image.setAttribute('src', URL.createObjectURL(dest));
-      });
-    </script>
-  </body>
+    });
+
+
+</script>
+
+</body>
 </html>
 <!--<!DOCTYPE html>-->
 
