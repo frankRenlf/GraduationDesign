@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>upload</title>
+</head>
+<body>
+<input type="file" value="select img" id="file">
+<img src="" id="img" alt="暂无" width="50" height="50">
+<button id="upload">upload</button>
+<a href="index.html">process</a>
+<script>
+    let file = document.querySelector("#file");   //表单
+    let img = document.querySelector("#img");   //图片
+    let upload = document.querySelector("#upload");   //下载
+    let body = document.body;
+    let file1 = null;
+
+
+    file.onchange = function (e) {
+
+        console.log(e);
+        file1 = e.target.files[0]; //文件上传
+        img.src = URL.createObjectURL(e.target.files[0]); //图片上传
+    }
+
+    upload.onclick = function () {
+        let a = document.createElement("a");
+        a.setAttribute("href", URL.createObjectURL(file1));
+        a.setAttribute("download", "my-image.png");  //file1.name文件的名字
+        a.click();
+    }
+</script>
+</body>
+</html>
