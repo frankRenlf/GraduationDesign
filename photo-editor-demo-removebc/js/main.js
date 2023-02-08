@@ -81,26 +81,26 @@ function removebackground() {
     // let images = document.getElementById('urls').value.split('\n')
 
     // images.forEach(imageUrl => {
-    const image = new Image();
-    image.onload = ({target}) => {
+    const imagebc = new Image();
+    imagebc.onload = ({target}) => {
         const w = Math.round(target.width);
         const h = Math.round(target.height);
 
-        const canvas = document.createElement("canvas");
+        // const canvas = document.createElement("canvas");
         canvas.width = w;
         canvas.height = h;
         // const canvasCtx = canvas.getContext("2d");
-        // canvasCtx.drawImage(
-        //     target,
-        //     0,
-        //     0,
-        //     target.width,
-        //     target.height,
-        //     0,
-        //     0,
-        //     w,
-        //     h
-        // );
+        canvasCtx.drawImage(
+            target,
+            0,
+            0,
+            target.width,
+            target.height,
+            0,
+            0,
+            w,
+            h
+        );
 
         const canvasImageData = canvasCtx.getImageData(0, 0, w, h);
 
@@ -119,10 +119,12 @@ function removebackground() {
         target.width = w;
         target.height = h;
         canvasCtx.putImageData(canvasImageData, 0, 0);
+        image = target;
         // document.body.append(image, canvas);
     };
-    image.crossOrigin = "";
-    image.src = URL.createObjectURL(fileInput.files[0]);
+    imagebc.crossOrigin = "";
+    imagebc.src = URL.createObjectURL(fileInput.files[0]);
+    // image = imagebc;
     // });
 }
 
