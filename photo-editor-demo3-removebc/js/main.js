@@ -81,8 +81,8 @@ function removebackground() {
     // let images = document.getElementById('urls').value.split('\n')
 
     // images.forEach(imageUrl => {
-    const imagebc = new Image();
-    imagebc.onload = ({target}) => {
+    image = new Image();
+    image.onload = ({target}) => {
         const w = Math.round(target.width);
         const h = Math.round(target.height);
 
@@ -122,8 +122,8 @@ function removebackground() {
         image = target;
         // document.body.append(image, canvas);
     };
-    imagebc.crossOrigin = "";
-    imagebc.src = URL.createObjectURL(fileInput.files[0]);
+    image.crossOrigin = "";
+    image.src = URL.createObjectURL(fileInput.files[0]);
     // image = imagebc;
     // });
 }
