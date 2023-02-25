@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Canvas裁剪图片</title>
+    <style>
+        #canvas,
+        #result {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Canvas裁剪图片</h1>
+    <p>请在图片上使用鼠标描出要裁剪的区域。</p>
+    <canvas id="canvas"></canvas>
+    <div id="result"></div>
+    <script>
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var result = document.getElementById('result');
+        var img = document.createElement('img');
+        var path = new Path2D();
+        var rect = null;
+        var isClosed = false;
+
+        canvas.addEventListener('mousedown', function (e) {
+            path.moveTo(e.offsetX, e.offsetY);
+            canvas.addEventListener('mousemove', drawLine);
+            canvas.addEventListener('mouseup', function () {
+                canvas.removeEventListener('mousemove', drawLine);
+                if (isClosed) {
+                    clipCircle();
+                }
+            });
+        });
+
+        function drawLine(e) {
+            path.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke(path);
+            rect = path.getBounds();
+            if (isClosed) {
+                clipCircle();
+            }
+        }
+
+        function clipCircle() {
+            var x = rect.x + rect.width / 2;
+            var y = rect.y + rect.height / 2;
+            var r = Math.sqrt(Math.pow(rect.width / 2, 2) + Math.pow(rect.height / 2, 2));
+            var croppedCanvas = document.createElement('canvas');
+            var croppedCtx = croppedCanvas.getContext('2d');
+            croppedCanvas.width = 2 * r;
+            croppedCanvas.height = 2 * r;
+            croppedCtx.arc(r, r, r, 0, 2 * Math.PI);
+            croppedCtx.clip();
+            croppedCtx.drawImage(canvas, x - r, y - r, 2 * r, 2 * r, 0, 0, 2 * r, 2 * r);
+            result.innerHTML = '<img src="' + croppedCanvas.toDataURL() + '">';
+        }
+
+        img.onload = function () {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+        };
+        img.src = 'image.jpg';
+    </script>
+</body>
+
+</html>
