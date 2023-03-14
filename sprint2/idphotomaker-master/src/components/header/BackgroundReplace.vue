@@ -1,7 +1,9 @@
 <template>
-  <Modal v-model="showModal" draggable sticky :reset-drag-position="true" :mask="false" :width="600" title="智能替换背景"
+  <Modal
+    v-model="showModal" draggable sticky :reset-drag-position="true" :mask="false" :width="600" title="智能替换背景"
     ok-text="保存修改" cancel-text="取消修改" @on-visible-change="handleVisibleChange" @on-ok="saveReplacedImg"
-    @on-cancel="closeModal">
+    @on-cancel="closeModal"
+  >
     <div v-if="getCurrentImgSrc" class="background-replace">
       <div class="left">
         <img :src="getCurrentImgSrc" alt="" width="200" height="280">
@@ -31,8 +33,8 @@
 import { mapGetters, mapState } from 'vuex'
 import axios from 'axios'
 import qs from 'qs'
+import { getImageData, toBase64, useKmeans } from './mat.js'
 import formData from '@/config/faceppapi'
-import { getImageData, useKmeans ,toBase64} from './mat.js'
 export default {
   name: 'BackgroundReplace',
   model: {
@@ -69,16 +71,16 @@ export default {
       if (this.currentMainPreviewImgName !== '')
         this.$Message.warning('未进行任何修改！')
     },
-     dataURItoBlob(dataURI) {
-        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]; // mime类型
-        var byteString = atob(dataURI.split(',')[1]); //base64 解码
-        var arrayBuffer = new ArrayBuffer(byteString.length); //创建缓冲数组
-        var intArray = new Uint8Array(arrayBuffer); //创建视图
+    dataURItoBlob(dataURI) {
+      const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0] // mime类型
+      const byteString = atob(dataURI.split(',')[1]) // base64 解码
+      const arrayBuffer = new ArrayBuffer(byteString.length) // 创建缓冲数组
+      const intArray = new Uint8Array(arrayBuffer) // 创建视图
 
-        for (var i = 0; i < byteString.length; i++) {
-            intArray[i] = byteString.charCodeAt(i);
-        }
-        return new Blob([intArray], {type: mimeString});
+      for (let i = 0; i < byteString.length; i++)
+        intArray[i] = byteString.charCodeAt(i)
+
+      return new Blob([intArray], { type: mimeString })
     },
     saveReplacedImg() {
       if (this.$refs.canvas && !this.isCanvasBlank(this.$refs.canvas)) {
