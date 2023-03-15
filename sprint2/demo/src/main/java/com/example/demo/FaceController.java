@@ -13,17 +13,11 @@ import java.util.Map;
 @RequestMapping("/face")
 public class FaceController {
 
-
-
     @PostMapping("/koutu")
-    public String koutu(@RequestBody  Map body){
-        body.put("api_key","7sz5c2XbXG3Z1shhtZvb4zjvbYPEyq2-");
-        body.put("api_secret","L2xsMQmNpW7lCGv0dVViaJda0iMdETWB");
+    public String koutu(@RequestBody Map body) {
+        body.put("api_key", "7sz5c2XbXG3Z1shhtZvb4zjvbYPEyq2-");
+        body.put("api_secret", "L2xsMQmNpW7lCGv0dVViaJda0iMdETWB");
         return HttpUtil.post("https://api-cn.faceplusplus.com/humanbodypp/v2/segment", body);
     }
-
-
-
-
 
 }
