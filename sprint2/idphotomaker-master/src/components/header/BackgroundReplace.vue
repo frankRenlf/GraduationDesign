@@ -116,10 +116,11 @@ export default {
           },
           data: formData,
         })
-        if (res.status === 200)
+        if (res.status === 200) {
+          console.log(res.data)
           return res.data.body_image
-        else
-          throw new Error('背景替换失败')
+        }
+        else { throw new Error('背景替换失败') }
       }
       catch (err) {
         this.$Message.error('背景替换失败')
