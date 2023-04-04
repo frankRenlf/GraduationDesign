@@ -26,7 +26,7 @@ if __name__ == '__main__':
         center.append(tuple(tmp))
     f_center.close()
 
-    fp = open("001.jpg", "rb")
+    fp = open("bc2.jpg", "rb")
     im = image.open(fp)
     # 新建一个图片
     m, n = im.size
@@ -37,7 +37,7 @@ if __name__ == '__main__':
     for line in f_sub.readlines():
         index = float((line.strip().split("\t"))[0])
         index_n = int(index)
-        pic_new.putpixel(((i / n), (i % n)), center[index_n])
+        pic_new.putpixel((int(i / n), (i % n)), center[index_n])
         i = i + 1
     f_sub.close()
 

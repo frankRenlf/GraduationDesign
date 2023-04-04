@@ -27,7 +27,7 @@ def load_data(file_path):
 
 
 if __name__ == "__main__":
-    k = 10  # 聚类中心的个数
+    k = 3  # 聚类中心的个数
     # 1、导入数据
     print("---------- 1.load data ------------")
     data = load_data("bc2.jpg")
