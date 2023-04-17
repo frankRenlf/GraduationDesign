@@ -15,7 +15,7 @@
       </div>
       <Tooltip
         class="remove-img"
-        content="点击删除此照片"
+        content="delete image"
         placement="right"
         theme="light"
       >

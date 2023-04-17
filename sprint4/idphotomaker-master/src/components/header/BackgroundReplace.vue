@@ -1,7 +1,9 @@
 <template>
-  <Modal v-model="showModal" draggable sticky :reset-drag-position="true" :mask="false" :width="600" title="智能替换背景"
-    ok-text="保存修改" cancel-text="取消修改" @on-visible-change="handleVisibleChange" @on-ok="saveReplacedImg"
-    @on-cancel="closeModal">
+  <Modal
+    v-model="showModal" draggable sticky :reset-drag-position="true" :mask="false" :width="600" title="replace background"
+    ok-text="save" cancel-text="cancel" @on-visible-change="handleVisibleChange" @on-ok="saveReplacedImg"
+    @on-cancel="closeModal"
+  >
     <div v-if="getCurrentImgSrc" class="background-replace">
       <div class="left">
         <img :src="getCurrentImgSrc" alt="" width="200" height="280">
@@ -11,18 +13,18 @@
       </div>
       <div v-if="getCurrentImgSrc" class="right">
         <Button type="primary" @click="replaceBgColor('blue')">
-          换蓝色背景
+          turn to blue
         </Button>
         <Button type="error" @click="replaceBgColor('red')">
-          换红色背景
+          turn to red
         </Button>
         <Button type="text" @click="replaceBgColor('white')">
-          换白色背景
+          turn to white
         </Button>
       </div>
     </div>
     <h3 v-else>
-      请先选择图片
+      select image first
     </h3>
   </Modal>
 </template>
@@ -31,8 +33,8 @@
 import { mapGetters, mapState } from 'vuex'
 import axios from 'axios'
 import qs from 'qs'
+import { getImageData, toBase64, useKmeans } from './mat.js'
 import formData from '@/config/faceppapi'
-import { getImageData, useKmeans ,toBase64} from './mat.js'
 export default {
   name: 'BackgroundReplace',
   model: {
@@ -67,18 +69,18 @@ export default {
     },
     closeModal() {
       if (this.currentMainPreviewImgName !== '')
-        this.$Message.warning('未进行任何修改！')
+        this.$Message.warning('no modification！')
     },
-     dataURItoBlob(dataURI) {
-        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]; // mime类型
-        var byteString = atob(dataURI.split(',')[1]); //base64 解码
-        var arrayBuffer = new ArrayBuffer(byteString.length); //创建缓冲数组
-        var intArray = new Uint8Array(arrayBuffer); //创建视图
+    dataURItoBlob(dataURI) {
+      const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0] // mime类型
+      const byteString = atob(dataURI.split(',')[1]) // base64 解码
+      const arrayBuffer = new ArrayBuffer(byteString.length) // 创建缓冲数组
+      const intArray = new Uint8Array(arrayBuffer) // 创建视图
 
-        for (var i = 0; i < byteString.length; i++) {
-            intArray[i] = byteString.charCodeAt(i);
-        }
-        return new Blob([intArray], {type: mimeString});
+      for (let i = 0; i < byteString.length; i++)
+        intArray[i] = byteString.charCodeAt(i)
+
+      return new Blob([intArray], { type: mimeString })
     },
     saveReplacedImg() {
       if (this.$refs.canvas && !this.isCanvasBlank(this.$refs.canvas)) {
@@ -88,12 +90,12 @@ export default {
           imgName: this.currentMainPreviewImgName,
           imgSrc: dataUrl,
         })
-        this.$Message.success('背景替换成功')
+        this.$Message.success('Background replacement successful')
         if (this.$refs.canvas)
           this.$refs.canvas.getContext('2d').clearRect(0, 0, 200, 280)
       }
       else {
-        this.$Message.error('未进行任何修改！')
+        this.$Message.error('no modification！')
       }
     },
     // 验证canvas画布是否为空
@@ -117,10 +119,10 @@ export default {
         if (res.status === 200)
           return res.data.body_image
         else
-          throw new Error('背景替换失败')
+          throw new Error('Background replacement failed')
       }
       catch (err) {
-        this.$Message.error('背景替换失败')
+        this.$Message.error('Background replacement failed')
       }
       finally {
         formData.image_base64 = ''

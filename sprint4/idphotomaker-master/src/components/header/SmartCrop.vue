@@ -6,9 +6,9 @@
     :reset-drag-position="true"
     :mask="false"
     :width="800"
-    title="智能裁剪"
-    ok-text="保存修改"
-    cancel-text="取消修改"
+    title="auto cutting"
+    ok-text="save"
+    cancel-text="cancel"
     @on-visible-change="handleVisibleChange"
     @on-ok="saveCropedImg"
     @on-cancel="closeModal"
@@ -35,12 +35,12 @@
           <!-- <template #choose> </template> -->
           <template #cancel>
             <Button ref="cancelButton" type="text" disabled>
-              取消
+              cancel
             </Button>
           </template>
           <template #confirm>
             <Button ref="cropButton" type="primary" disabled>
-              裁剪
+              cut down
             </Button>
           </template>
         </ImgCutter>
@@ -58,8 +58,8 @@
             :loading="loading"
             @click="smartRotate"
           >
-            <span v-if="!loading">自动矫正</span>
-            <span v-else>处理中...</span>
+            <span v-if="!loading">auto correct</span>
+            <span v-else>processing...</span>
           </Button>
           <!-- <Button
             ref="autoRotateButton"
@@ -166,7 +166,7 @@ export default {
     },
     async smartRotate() {
       try {
-        if (this.cutdownImgPreviewSrc === '') throw new Error('没有选择图片')
+        if (this.cutdownImgPreviewSrc === '') throw new Error('no image selected')
         const input = new Image()
         input.src = this.cutdownImgPreviewSrc
         this.loading = true
@@ -179,11 +179,11 @@ export default {
         const rightEye = landmarks.positions[45]
         this.autoRotate = this.calcAng(leftEye, rightEye)
         this.loading = false
-        this.$Message.success('自动矫正处理成功')
+        this.$Message.success('auto correct success')
         this.$refs.autoRotateButton.$el.setAttribute('disabled', 'false')
       }
       catch (error) {
-        this.$Message.error('处理失败')
+        this.$Message.error('process failed')
       }
     },
     cutDown(file) {
@@ -217,7 +217,7 @@ export default {
       this.$refs.autoRotateButton.$el.setAttribute('disabled', 'true')
     },
     error(err) {
-      if (err.msg === 'No picture selected') this.$Message.error('未选择图片')
+      if (err.msg === 'No picture selected') this.$Message.error('no image selected')
     },
     saveCropedImg() {
       const img = this.$refs.previewimg.firstChild
@@ -226,15 +226,15 @@ export default {
           imgName: this.currentMainPreviewImgName,
           imgSrc: img.src,
         })
-        this.$Message.success('保存修改成功')
+        this.$Message.success('save success')
       }
       else {
-        this.$Message.error('未进行任何修改')
+        this.$Message.error('no modification')
       }
     },
     closeModal() {
       if (this.currentMainPreviewImgName !== '')
-        this.$Message.warning('未进行任何修改！')
+        this.$Message.warning('no modification！')
     },
   },
 }
