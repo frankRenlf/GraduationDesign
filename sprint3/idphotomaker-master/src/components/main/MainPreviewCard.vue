@@ -1,6 +1,6 @@
 <template>
   <div id="show-img">
-    <img v-if="ModifiedImgData.length != 0" :src="getCurrentImgSrc" alt="">
+    <img v-if="ModifiedImgData.length !== 0" :src="getCurrentImgSrc" alt="">
   </div>
 </template>
 
