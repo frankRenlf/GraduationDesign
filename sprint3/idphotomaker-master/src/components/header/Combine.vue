@@ -1,117 +1,118 @@
 
 <template>
-    <Modal v-model="showModal" draggable sticky :reset-drag-position="true" :mask="false" :width="600" title="图片融合"
-        ok-text="保存修改" cancel-text="取消修改" @on-visible-change="handleVisibleChange" @on-ok="saveReplacedImg"
-        @on-cancel="closeModal">
-
-        <Upload ref="upload" action="#" :multiple="false" :show-upload-list="false" :before-upload="loadImg"
-            :format="['jpg', 'jpeg', 'png']" :accept="accept" :on-format-error="handleFormatError">
-            <div class="upload">
-                <Icon type="ios-add-circle-outline" />
-                选择正装
-            </div>
-        </Upload>
-        <div style="padding:20px">
-            <canvas id="c" ref="c" class="right" width="600" height="600"></canvas>
-        </div>
-
-    </Modal>
+  <Modal
+    v-model="showModal" draggable sticky :reset-drag-position="true" :mask="false" :width="600" title="图片融合"
+    ok-text="保存修改" cancel-text="取消修改" @on-visible-change="handleVisibleChange" @on-ok="saveReplacedImg"
+    @on-cancel="closeModal"
+  >
+    <Upload
+      ref="upload" action="#" :multiple="false" :show-upload-list="false" :before-upload="loadImg"
+      :format="['jpg', 'jpeg', 'png']" :accept="accept" :on-format-error="handleFormatError"
+    >
+      <div class="upload">
+        <Icon type="ios-add-circle-outline" />
+        选择正装
+      </div>
+    </Upload>
+    <div style="padding:20px">
+      <canvas id="c" ref="c" class="right" width="600" height="600" />
+    </div>
+  </Modal>
 </template>
-  
+
 <script>
 import { mapGetters, mapState } from 'vuex'
-import 'fabric'
-import { fabric } from "fabric";
+import { fabric } from 'fabric'
+
 export default {
-    name: 'combine',
-    model: {
-        prop: 'combineModalVal',
-        event: 'input',
-    },
-    props: ['combineModalVal'],
-    data() {
-        return {
-            accept: 'image/jpeg,image/jpg,image/png',
-            showModal: false,
-            __canvas: null,
-            a: 0
-        }
-    },
-    watch: {
-        combineModalVal(nv) {
-            this.showModal = nv
-        },
-        currentMainPreviewImgName() {
-
-        },
-
-    },
-    mounted() {
-        this.showModal = this.combineModalVal;
-        var canvas = this.__canvas = new fabric.Canvas('c'); //cavans
-        //背景
-        fabric.Image.fromURL(this.getCurrentImgSrc, (img, isError) => {
-            const width = img.height;
-            img.set({ originX: 'left', originY: 'top' }).scale(600 / width);
-            canvas.add(img);
-        });
-
-    },
-    computed: {
-        ...mapState(['currentMainPreviewImgName']),
-        ...mapGetters(['getCurrentImgSrc']),
-    },
-    methods: {
-
-        loadImg(file) {
-            const reader = new FileReader()
-            reader.readAsDataURL(file)
-            reader.onload = (img) => {
-                // 将上传的图片名字和base64Url分发
-                fabric.Image.fromURL(img.target.result, (img, isError) => {
-                    img.set({ originX: 'left', originY: 'top' }).scale(600 / img.height);
-                    this.__canvas.add(img);
-                });
-                // 清空上传列表
-                this.$refs.upload.clearFiles()
-            }
-            // 禁止默认自动上传
-            return false
-        },
-        handleFormatError() {
-            console.log('文件不是图片')
-        },
-        handleVisibleChange(val) {
-            val || this.$emit('input', val)
-        },
-
-        saveReplacedImg() {
-            this.exportA()
-        },
-        closeModal() {
-
-        },
-        exportA() {
-            const canvas = this.__canvas;
-            var dataURL = canvas.toDataURL({
-                format: 'png',
-                left: 0,
-                top: 0,
-                width: 600,
-                height: 600
-            });
-
-            this.$store.dispatch('updateImgData', {
-                imgName: this.currentMainPreviewImgName,
-                imgSrc: dataURL,
-            })
-            console.log(dataURL)
-        }
-
+  name: 'Combine',
+  model: {
+    prop: 'combineModalVal',
+    event: 'input',
+  },
+  props: ['combineModalVal'],
+  data() {
+    return {
+      accept: 'image/jpeg,image/jpg,image/png',
+      showModal: false,
+      __canvas: null,
+      a: 0,
     }
+  },
+  watch: {
+    combineModalVal(nv) {
+      this.showModal = nv
+    },
+    currentMainPreviewImgName() {
+
+    },
+
+  },
+  mounted() {
+    this.showModal = this.combineModalVal
+    const canvas = this.__canvas = new fabric.Canvas('c') // cavans
+    // 背景
+    fabric.Image.fromURL(this.getCurrentImgSrc, (img, isError) => {
+      const width = img.height
+      img.set({ originX: 'left', originY: 'top' }).scale(600 / width)
+      canvas.add(img)
+    })
+  },
+  computed: {
+    ...mapState(['currentMainPreviewImgName']),
+    ...mapGetters(['getCurrentImgSrc']),
+  },
+  methods: {
+
+    loadImg(file) {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = (img) => {
+        // 将上传的图片名字和base64Url分发
+        fabric.Image.fromURL(img.target.result, (img, isError) => {
+          img.set({ originX: 'left', originY: 'top' }).scale(600 / img.height)
+          this.__canvas.add(img)
+        })
+        // 清空上传列表
+        this.$refs.upload.clearFiles()
+      }
+      // 禁止默认自动上传
+      return false
+    },
+    handleFormatError() {
+      console.log('文件不是图片')
+    },
+    handleVisibleChange(val) {
+      val || this.$emit('input', val)
+    },
+
+    saveReplacedImg() {
+      this.exportA()
+    },
+    closeModal() {
+
+    },
+    exportA() {
+      const canvas = this.__canvas
+      const dataURL = canvas.toDataURL({
+        format: 'png',
+        left: 0,
+        top: 0,
+        width: 600,
+        height: 600,
+      })
+
+      this.$store.dispatch('updateImgData', {
+        imgName: this.currentMainPreviewImgName,
+        imgSrc: dataURL,
+      })
+      console.log(dataURL)
+    },
+
+  },
 }
 </script>
-  
+
 <style lang="scss" scoped>
 .row {
     display: flex;
@@ -153,4 +154,3 @@ export default {
     }
 }
 </style>
-  

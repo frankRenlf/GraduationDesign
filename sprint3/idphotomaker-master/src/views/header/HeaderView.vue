@@ -4,54 +4,56 @@
       <Menu class="menu" mode="horizontal" theme="light">
         <div class="layout-nav">
           <Dropdown class="upload-img">
-            <Upload ref="upload" action="#" :multiple="false" :show-upload-list="false" :before-upload="loadImg"
-              :format="['jpg', 'jpeg', 'png']" :accept="accept" :on-format-error="handleFormatError">
+            <Upload
+              ref="upload" action="#" :multiple="false" :show-upload-list="false" :before-upload="loadImg"
+              :format="['jpg', 'jpeg', 'png']" :accept="accept" :on-format-error="handleFormatError"
+            >
               <div class="upload">
                 <Icon type="ios-add-circle-outline" />
-                打开图片
+                upload
               </div>
             </Upload>
           </Dropdown>
           <Dropdown class="reset-img">
             <Button type="text" @click="resetCurrentImg">
               <Icon type="ios-crop" />
-              重置修改
+              reset
             </Button>
           </Dropdown>
           <Dropdown class="crop-img">
             <Button type="text" @click="smartCropModalVal = true">
               <Icon type="ios-crop" />
-              裁剪图片
+              cut and scale
             </Button>
           </Dropdown>
           <Dropdown class="replace-bg">
             <Button type="text" @click="backgroundReplaceModalVal = true">
               <Icon type="ios-aperture-outline" />
-              背景替换
+              replace
             </Button>
           </Dropdown>
           <Dropdown class="replace-bg">
             <Button type="text" @click="exportImg">
               <Icon type="ios-cloud-download-outline" />
-              导出下载
+              export
             </Button>
           </Dropdown>
           <Dropdown class="replace-bg">
             <Button type="text" @click="combineModalVal = true">
               <Icon type="ios-cloud-download-outline" />
-              更换正装
+              fusion
             </Button>
           </Dropdown>
           <Dropdown class="replace-bg">
             <Button type="text" @click="processModalVal = true">
               <Icon type="ios-cloud-download-outline" />
-              图片处理
+              modify
             </Button>
           </Dropdown>
           <Dropdown class="replace-bg">
             <Button type="text" @click="penModalVal = true">
               <Icon type="ios-cloud-download-outline" />
-              钢笔抠图
+              segmentation
             </Button>
           </Dropdown>
         </div>
@@ -59,20 +61,20 @@
     </Header>
     <SmartCrop v-model="smartCropModalVal" />
     <BackgroundReplace v-model="backgroundReplaceModalVal" />
-    <Combine v-model="combineModalVal"></Combine>
-    <Process v-model="processModalVal"></Process>
-    <Cut v-model="penModalVal"></Cut>
-    <Export v-model="exportModalVal"></Export>
+    <Combine v-model="combineModalVal" />
+    <Process v-model="processModalVal" />
+    <Cut v-model="penModalVal" />
+    <Export v-model="exportModalVal" />
   </div>
 </template>
 
 <script>
 import SmartCrop from '@/components/header/SmartCrop'
 import BackgroundReplace from '@/components/header/BackgroundReplace'
-import Combine from "@/components/header/Combine"
-import Process from "@/components/header/Process"
-import Cut from "@/components/header/Cut"
-import Export from "@/components/header/Export"
+import Combine from '@/components/header/Combine'
+import Process from '@/components/header/Process'
+import Cut from '@/components/header/Cut'
+import Export from '@/components/header/Export'
 export default {
   components: { SmartCrop, BackgroundReplace, Combine, Process, Cut, Export },
   data() {
@@ -83,7 +85,7 @@ export default {
       combineModalVal: false,
       processModalVal: false,
       penModalVal: false,
-      exportModalVal: false
+      exportModalVal: false,
     }
   },
   methods: {
@@ -116,8 +118,7 @@ export default {
       }
     },
     exportImg() {
-      this.exportModalVal = true;
-      
+      this.exportModalVal = true
     },
   },
 }
