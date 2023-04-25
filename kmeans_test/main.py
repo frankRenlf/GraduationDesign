@@ -41,6 +41,6 @@ if __name__ == '__main__':
         i = i + 1
     f_sub.close()
 
-    pic_new.save("result.jpg", "JPEG")
+    pic_new.save("result2.jpg", "JPEG")
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
