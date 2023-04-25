@@ -2,7 +2,7 @@
 
 The final project program is in sprint4, the others are tests, modules and unintegrated functions during the project.
 
-Program can be found in http://frankly.ren:8080/.
+Application can be accessed in http://frankly.ren:8080/.
 
 Guidence for users is there:
 
