@@ -26,7 +26,7 @@ if __name__ == '__main__':
         center.append(tuple(tmp))
     f_center.close()
 
-    fp = open("bc2.jpg", "rb")
+    fp = open("mine.png", "rb")
     im = image.open(fp)
     # 新建一个图片
     m, n = im.size
@@ -41,6 +41,6 @@ if __name__ == '__main__':
         i = i + 1
     f_sub.close()
 
-    pic_new.save("result2.jpg", "JPEG")
+    pic_new.save("result4.jpg", "JPEG")
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
