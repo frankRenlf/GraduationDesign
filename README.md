@@ -6,7 +6,7 @@ The others are tests, modules and unintegrated functions during the project.
 
 Sprint1 to 4 are all phased achievements.
 
-If you want to download pure project, you can enter sprint4 to download pure_production as front end and backend as back end.
+If you want to download pure project, you can enter final_application to download pure_production as front end and backend as back end.
 
 Application can be accessed in http://frankly.ren:8080/.
 #
