@@ -1,6 +1,8 @@
 # GraduationDesign
 
-The final project program is in sprint4, the others are tests, modules and unintegrated functions during the project.
+The final project program is in final_application, the others are tests, modules and unintegrated functions during the project.
+
+Sprint1 to 4 are all phased achievements.
 
 Application can be accessed in http://frankly.ren:8080/.
 #
